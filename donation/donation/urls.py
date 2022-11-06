@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from django.contrib.auth import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 from donation.auth.views import UserLoginView, registerView, logoutView, PasswordChangeView
 from donation.auth.forms import UserLoginForm, CustomPasswordResetForm, CustomPasswordChangeForm
@@ -33,3 +35,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

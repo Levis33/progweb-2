@@ -1,0 +1,138 @@
+/* Smooth Dropdown */
+
+body {
+	font-family: 'Century Gothic' !important;
+}
+
+.dropdown-menu {
+  display: block;
+  visibility: hidden;
+  opacity:0;
+  transform: translateY(70px);
+  transition:.4s ease all;
+}
+
+.dropdown-menu.show {
+  display: block;
+  visibility: visible;
+  opacity:1;
+  transform: translateY(1px);
+  transition:.4s ease all;
+}
+
+/* Images */
+.navbar-logo {
+  max-height: 55px;
+  width: auto;
+}
+
+/* .puc-rio-logo {
+  width: 80px !important;
+  height: auto !important;
+} */
+
+.biobd-logo {
+  width: 150px !important;
+  height: auto;
+}
+
+.di-logo {
+  width: 150px !important;
+  height: auto;
+}
+
+.dei-logo {
+  width: 8rem !important;
+  height: auto;
+}
+
+.hands-logo {
+  width: 8rem !important;
+  height: auto;
+}
+
+.faperj-logo {
+  width: 10rem !important;
+  height: auto;
+}
+
+.capes-logo {
+  width: 10rem !important;
+  height: auto;
+}
+
+/* Nav Link Hover */
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus,.navbar .navbar-nav > li > a:active {
+  color: #52658c !important;
+}
+
+[data-href] { 
+  cursor: pointer; 
+}
+
+.obrigatorio { /* <span class="obrigatorio">*</span> */
+  color: red;
+  font-weight: bold;
+}
+
+.opcional_importante { /* <span class="opcional_importante">*</span> */
+  color: #ffcc29;
+  font-weight: bold;
+}
+
+.blue_handson {
+  background-color: #52658c;
+  color: #FFF;
+}
+
+.red_handson {
+  background-color: #ED3338;
+  color: #FFF;
+}
+
+.paginate_button.page-item.active .page-link {
+  background-color: #52658c !important;
+  border-color: #52658c !important;
+}
+
+.btn-primary {
+  background-color: #FFF;
+  color: #52658c;
+  border-color: #52658c;
+  border-radius: 25px;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active    {
+  background-color: #52658c;
+  color: #FFF;
+  border-color: #52658c;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #52658c;
+  border-color: #52658c;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #52658c;
+  border-color: #52658c;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #52658c;
+  border-color: #52658c;
+}
+
+.btn-primary:active, .btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #52658c;
+  background-image: none;
+  border-color: #52658c;
+}
