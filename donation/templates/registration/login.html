@@ -1,0 +1,32 @@
+{% extends "registration/login_base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+<form class="form-signin" novalidate>
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Faça o Login</h1>
+
+    <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus=""> -->
+    <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""> -->
+    {{ form.username }}
+    {{ form.password }}
+
+    {% if form.errors%}
+    <div class="alert-danger">
+        Seu email e senha não correspondem, tente novamente.
+    </div>
+    {% endif %}
+    
+    <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Log in</button>
+    <a href="{% url 'password_reset' %}" id="forgot_pswd">Esqueceu sua senha?</a>
+    <hr>
+    <!-- <p>Don't have an account!</p>  -->
+    <a href="{% url 'register' %}"><button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Crie uma nova conta</button></a>
+    </form>
+    
+    <br>
+
+{% endblock %}
