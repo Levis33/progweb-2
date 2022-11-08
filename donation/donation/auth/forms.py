@@ -2,18 +2,37 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm
 from project.models import Usuario
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _U
 
 class registerForm(UserCreationForm):
-    first_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome', 'required': 'true'}))
-    last_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sobrenome'}))
-    email = forms.EmailField(label=("email"), max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email'}), error_messages={'required': 'Por favor entre um email válido'})
+    nome = forms.CharField(max_length=60, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome', 'required': 'true'}))
+    email = forms.EmailField(label=("email"), max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), error_messages={'required': 'Por favor entre um email válido'})
+    cpf = forms.CharField(label='Número do CPF', max_length=14, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'CPF',}))
     password1 = forms.CharField(label=("Password"), widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha'}))
     password2 = forms.CharField(label=("Password confirmation"), widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmar senha'}), help_text=("Digite a mesma senha acima, para verificação."))
 
     class Meta:
         model = Usuario
-        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['nome', 'email', 'cpf', 'password1', 'password2']
+
+    def clean_senhas(self):
+        cleaned_data = super().clean()
+        pass1 = cleaned_data.get('password1')
+        pass2 = cleaned_data.get('password2')
+
+        if pass1 is not None and pass1 != pass2:
+            self.add_error('password2', 'As senhas não correspondem.')
+
+    def clean_email(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        if Usuario.objects.filter(email=email).count() > 0:
+            raise ValidationError(_U('Este email já está associado a um usuário.'))
+
+        return email
+
+# fazer form criacao de usuario tipo administrador
 
 
 class UserLoginForm(AuthenticationForm):
