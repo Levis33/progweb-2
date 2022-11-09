@@ -4,11 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, Pas
 from project.models import Usuario
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _U
+from validate_docbr import CPF
 
 class registerForm(UserCreationForm):
     nome = forms.CharField(max_length=60, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome', 'required': 'true'}))
     email = forms.EmailField(label=("email"), max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), error_messages={'required': 'Por favor entre um email válido'})
-    cpf = forms.CharField(label='Número do CPF', max_length=14, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'CPF',}))
+    cpf = forms.CharField(label='Número do CPF', max_length=14, widget=forms.TextInput(attrs={'class': 'cpf form-control', 'placeholder': 'CPF', 'id': 'cpf'}))
     password1 = forms.CharField(label=("Password"), widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha'}))
     password2 = forms.CharField(label=("Password confirmation"), widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmar senha'}), help_text=("Digite a mesma senha acima, para verificação."))
 
@@ -16,7 +17,7 @@ class registerForm(UserCreationForm):
         model = Usuario
         fields = ['nome', 'email', 'cpf', 'password1', 'password2']
 
-    def clean_senhas(self):
+    def clean(self):
         cleaned_data = super().clean()
         pass1 = cleaned_data.get('password1')
         pass2 = cleaned_data.get('password2')
@@ -31,6 +32,17 @@ class registerForm(UserCreationForm):
             raise ValidationError(_U('Este email já está associado a um usuário.'))
 
         return email
+
+    def clean_cpf(self):
+        doc_num = self.cleaned_data['cpf']
+        doc_teste = doc_num.replace('.', '').replace('/', '').replace('-', '').replace('_', '')
+
+        if not(CPF().validate(doc_teste)):
+            raise ValidationError('CPF inválido')
+        elif Usuario.objects.filter(cpf=doc_num).exists():
+            raise ValidationError('Já existe uma conta cadastrada com esse CPF')
+        
+        return doc_num
 
 # fazer form criacao de usuario tipo administrador
 

@@ -38,13 +38,12 @@ def registerView(request):
         if form.is_valid():
 
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = True
 
             user.save()
-            alert_staff(1, {'first_name': form.cleaned_data['first_name'],
-                            'last_name': form.cleaned_data['last_name'],
-                            'email': form.cleaned_data['email'],
-                            'link': request.META['HTTP_HOST'] + '/admin/auth/user/'})
+            # alert_staff(1, {'nome': form.cleaned_data['nome'],
+            #                 'email': form.cleaned_data['email'],
+            #                 'link': request.META['HTTP_HOST'] + '/admin/auth/user/'})
 
             return redirect('login')
 

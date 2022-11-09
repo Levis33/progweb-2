@@ -18,57 +18,12 @@
             {{ field }}
         </div>
         <span class="text-danger">{{ field.errors }}</span> 
-        <!-- <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-        <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-        <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-        <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus=""> -->
-
         {% endfor %}
         <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Criar conta</button>
         <a href="{% url 'login' %}" id="cancel_signup"><i class="fas fa-angle-left"></i> Voltar</a>
     </form>
-<!-- </div>
-    <form > 
-		{% csrf_token %}
-		<h2>Cadastro</h2>
-      <div class="form-group">
-        <div class="row">
-          <div class="col"> 
-            {{ form.first_name }}
-          {% if form.first_name.errors%}
-            <div class="alert-danger">{{ form.first_name.errors }}</div>
-          {% endif %}
-          </div>
-          <div class="col">
-            {{ form.last_name }}
-            <div class="alert-danger">
-              {{ form.last_name.errors}}
-            </div>
-          </div>
-        </div>        	
-      </div>
-      <div class="form-group">
-        {{ form.email }}
-        <div class="alert-danger">
-          {{ form.email.errors }}
-        </div>
-      </div>
-      <div class="form-group">
-        {{ form.password1 }}
-        <div class="alert-danger">
-          {{ form.password1.errors }}
-        </div>
-      </div>
-      <div class="form-group">
-        {{ form.password2 }}
-        <div class="alert-danger">
-          {{ form.password2.errors }}
-        </div>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-success btn-lg btn-block" name="submit" id="submit">Cadastre-se</button>
-      </div>
-    </form>
-    <div class="text-center">Já possui uma conta? <a href="{% url 'login' %}">Fazer login</a></div>
-</div> -->
+
+<script>
+  $('.cpf').mask('000.000.000-00', {reverse: true});
+</script>
 {% endblock %}

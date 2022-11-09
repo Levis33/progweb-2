@@ -59,77 +59,60 @@
                 </span>
             </a>
             {% if not user.is_authenticated %}
-
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#">Sobre</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#">Causas</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link click-scroll" href="index.html#section_6">Contato</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link click-scroll dropdown-toggle" 
-                        id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false"><i class="fa-solid fa-user"></i></a>
-
-                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li><a class="dropdown-item" href="news.html">News Listing</a></li>
-
-                        <li><a class="dropdown-item" href="news-detail.html">News Detail</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-
-
-            {% else %}
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Home</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Sobre</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Causas</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Volunteer</a>
                     </li>
-
                     <li class="nav-item dropdown">
-                        <a class="nav-link click-scroll dropdown-toggle" href="index.html#section_5"
-                            id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">News</a>
-
+                        <a class="nav-link click-scroll dropdown-toggle" href="index.html#section_5"id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item" href="news.html">News Listing</a></li>
-
-                            <li><a class="dropdown-item" href="news-detail.html">News Detail</a></li>
+                            <li><a class="dropdown-item" href="#">News Listing</a></li>
+                            <li><a class="dropdown-item" href="#">News Detail</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="index.html#section_6">Contato</a>
                     </li>
-
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="donate.html">Faça Login</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="{% url 'login' %}">Faça Login</a>
+                    </li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="#">Causas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="index.html#section_6">Contato</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link click-scroll dropdown-toggle" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">News Listing</a></li>
+                            <li><a class="dropdown-item" href="#">News Detail</a></li>
+                            <form class="logout-link" action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <li><button type="submit" class="dropdown-item"> Logout</button></li>
+                            </form>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -182,10 +165,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
-
-    <!-- Setup tabelas -->
-    <script type="text/javascript" src="{% static 'js/tabela-necessidades.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/enable_tooltips.js' %}"></script>
 
     <!--- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -75,6 +75,9 @@ CUSTOM PROPERTIES ( VARIABLES )
 
 body {
 	font-family: 'Century Gothic' !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -278,6 +281,7 @@ body {
 
 footer {
   background: #44525d;
+  margin-top: auto;
 }
 
 .footer-titles {
