@@ -22,6 +22,7 @@ class Campanha(models.Model):
     nome = models.CharField(max_length=50)
     data_inicio = models.DateField()
     data_fim = models.DateField()
+    descricao = models.TextField(max_length=500)
     CEP = models.CharField(max_length=9)
     uf = models.CharField(max_length=2)
     cidade = models.CharField(max_length=50)

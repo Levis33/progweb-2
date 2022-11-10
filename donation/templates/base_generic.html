@@ -65,16 +65,13 @@
                         <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Causas</a>
+                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Sobre</a>
                     </li>
                     <li class="nav-item ms-3">
                         <a class="nav-link click-scroll" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="#">Doar</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="{% url 'campanhas' %}">Doar</a>
                     </li>
                 </ul>
             </div>
@@ -85,11 +82,13 @@
                         <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Sobre</a>
+                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Sobre</a>
                     </li>
+                    {% if request.user|has_group:"Administrador" %}
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Causas</a>
+                        <a class="nav-link click-scroll" href="{% url 'criar_campanha' %}">Criar campanha</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item dropdown">
                         <a class="nav-link click-scroll dropdown-toggle" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
@@ -104,7 +103,7 @@
                         </ul>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="#">Doar</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" href="{% url 'campanhas' %}">Doar</a>
                     </li>
                 </ul>
             </div>
@@ -114,9 +113,11 @@
     </nav>
 
     <main>
-        <div class="container-fluid px-4">
+        <div class="container">
+            <br>
             {% block content %}
             {% endblock %}
+        </div>
     </main>
 
 </body>

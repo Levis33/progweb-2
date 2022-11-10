@@ -26,7 +26,7 @@ def gerenciar_usuarios(request):
     context = {
         'usuarios': usuarios,
     }
-    return render(request, 'gerenciar_usuarios.html', context=context)
+    return render(request, 'gerenciar_usuarios/gerenciar_usuarios.html', context=context)
 
 @login_required
 @group_required('Administrador')
@@ -48,7 +48,7 @@ def editar_usuario(request, user_id):
 
     context = {"usuario": usuario, "form": form }
 
-    return render(request, 'editar_usuario.html', context=context)
+    return render(request, 'gerenciar_usuarios/editar_usuario.html', context=context)
 
 @login_required
 def campanhas(request):
