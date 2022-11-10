@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import logout
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import Group
 from donation.mailer import send_email
 from django.contrib.auth.models import User
 from donation.auth.forms import registerForm
+from donation.decorators import group_required
 
 from logger.models import LogEvents
 from logger.functions import log_event
@@ -39,17 +40,37 @@ def registerView(request):
 
             user = form.save(commit=False)
             user.is_active = True
-
             user.save()
+            grupo = Group.objects.get(name='Doador')
+            grupo.user_set.add(user)
             # alert_staff(1, {'nome': form.cleaned_data['nome'],
             #                 'email': form.cleaned_data['email'],
             #                 'link': request.META['HTTP_HOST'] + '/admin/auth/user/'})
-
             return redirect('login')
 
     context = {'form': form}
     return render(request, 'registration/register.html', context=context)
 
+@login_required
+@group_required('Administrador') 
+def createAdmin(request):
+    form = registerForm()
+
+    if request.method == "POST":
+        form = registerForm(request.POST)
+        if form.is_valid():
+
+            user = form.save(commit=False)
+            user.is_active = True
+            user.save()
+            grupo = Group.objects.get(name='Administrador')
+            grupo.user_set.add(user)
+
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'registration/criar_admin.html', context=context)
+    
 
 class UserLoginView(views.LoginView):
     def post(self, request):

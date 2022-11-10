@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+{% block title %} Criar Adminitrador {% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+
+    <form class="" novalidate action="{% url 'criarAdmin' %}" method="post">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Cadastrar Administrador</h1>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="">
+            {{ field }}
+        </div>
+        <br>
+        <span class="text-danger">{{ field.errors }}</span> 
+        {% endfor %}
+        <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Criar conta</button>
+    </form>
+
+</div>
+
+
+{% endblock %}

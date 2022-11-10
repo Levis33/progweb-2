@@ -20,7 +20,7 @@ from django.contrib.auth import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from donation.auth.views import UserLoginView, registerView, logoutView, PasswordChangeView
+from donation.auth.views import UserLoginView, registerView, logoutView, PasswordChangeView, createAdmin
 from donation.auth.forms import UserLoginForm, CustomPasswordResetForm, CustomPasswordChangeForm
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('accounts/login/', UserLoginView.as_view(redirect_authenticated_user=True, authentication_form=UserLoginForm), name='login'),
     path('accounts/register/', registerView, name='register'),
+    path('accounts/criarAdmin/', createAdmin, name='criarAdmin'),
     path('accounts/logout/', logoutView, name='logout'),
     path('accounts/password_reset/', views.PasswordResetView.as_view(form_class=CustomPasswordResetForm), name='password_reset'),
     path('accounts/password_change/', PasswordChangeView.as_view(form_class=CustomPasswordChangeForm), name='password_change'),

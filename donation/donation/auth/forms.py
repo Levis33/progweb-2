@@ -44,8 +44,6 @@ class registerForm(UserCreationForm):
         
         return doc_num
 
-# fazer form criacao de usuario tipo administrador
-
 
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):

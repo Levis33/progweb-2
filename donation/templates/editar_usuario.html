@@ -1,0 +1,36 @@
+{% extends 'base_generic.html' %}
+{% block title %} Editar Usuários {% endblock %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Página Inicial</a></li>
+                <li class="breadcrumb-item" aria-current="page">Gerenciar Usuários</li>
+                <li class="breadcrumb-item active" aria-current="page">Editar Usuário</li> 
+            </ol>
+        </nav>
+    </div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="mb-3 w-25">
+            <p>Trocar Status Usuário<span class="obrigatorio">*</span></p>
+            {{ form.is_active }}
+                {% if form.is_active.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.is_active.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3 w-25">
+            <button id="" type="submit" class="btn btn-success">Salvar</button>
+            <!-- <button id="voltar_telaInicial" type="submit2" class="btn btn-outline-secondary">Voltar</button> -->
+            <a href="{%url 'gerenciar_usuarios' %} " > <input class="btn btn-outline-secondary" type="button" value="Voltar"></a>
+        </div>
+
+    </form>
+
+{% endblock %}

@@ -62,7 +62,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Home</a>
+                        <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Sobre</a>
@@ -82,7 +82,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="#">Home</a>
+                        <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link click-scroll" href="#">Sobre</a>
@@ -93,8 +93,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link click-scroll dropdown-toggle" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown"aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">News Listing</a></li>
-                            <li><a class="dropdown-item" href="#">News Detail</a></li>
+                            {% if request.user|has_group:"Administrador" %}
+                            <li><a class="dropdown-item" href="{% url 'gerenciar_usuarios' %}">Gerenciar Usuários</a></li>
+                            <li><a class="dropdown-item" href="{% url 'criarAdmin' %}">Criar Administrador</a></li>
+                            {% endif %}
                             <form class="logout-link" action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
                                 <li><button type="submit" class="dropdown-item"> Logout</button></li>
@@ -109,11 +111,17 @@
         </div>
 
             {% endif %}
-
-            
     </nav>
 
+    <main>
+        <div class="container-fluid px-4">
+            {% block content %}
+            {% endblock %}
+    </main>
+
 </body>
+
+
 
 
 <footer class="w-100 py-4 flex-shrink-0">
