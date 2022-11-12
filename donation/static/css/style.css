@@ -40,16 +40,16 @@
 CUSTOM PROPERTIES ( VARIABLES )             
 -----------------------------------------*/
 :root {
---white-color:                  #ffffff;
---primary-color:                #5bc1ac;
---secondary-color:              #5a6f80;
---section-bg-color:             #f0f8ff;
---site-footer-bg-color:         #44525d;
---custom-btn-bg-color:          #597081;
---custom-btn-bg-hover-color:    #5bc1ac;
+--white-color:                  #DCD7C9;
+--primary-color:                #A27B5C;
+--secondary-color:              #3F4E4F;
+--section-bg-color:             #DCD7C9;
+--site-footer-bg-color:         #2C3639;
+--custom-btn-bg-color:          #3F4E4F;
+--custom-btn-bg-hover-color:    #A27B5C;
 --dark-color:                   #000000;
 --p-color:                      #717275;
---border-color:                 #e9eaeb;
+--border-color:                 #DCD7C9;
 
 --body-font-family:             'Metropolis', sans-serif;
 
@@ -120,6 +120,37 @@ body {
   background: var(--custom-btn-bg-hover-color);
   border-color: transparent;
   color: var(--white-color);
+}
+
+/*---------------------------------------
+  CAMPANHAS              
+-----------------------------------------*/
+
+.titles {
+  color: var(--dark-color);
+  text-decoration: none; 
+  font-weight: var(--font-weight-bold);
+}
+
+.money {
+  color: #01c632;
+  font-size: 20px;
+  display: block;
+}
+
+.caption {
+  text-align: center;
+}
+
+.btn {
+	border: none;
+	border-radius: 0px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.btn-success {
+  border-radius: 25px;
 }
 
 
@@ -281,24 +312,34 @@ body {
   color: var(--white-color);
 }
 
-
-
 footer {
-  background: #44525d;
+  background: var(--site-footer-bg-color);
   margin-top: auto;
 }
 
 .footer-titles {
-  color: #5bc1ac;
+  color: var(--primary-color);
+  text-decoration: none; 
 }
 
-.footer-link {
-  color: #fff;
+.footer-links {
+  color: var(--white-color);
+  text-decoration: none; 
+}
+
+.footer-links:hover {
+  color: var(--primary-color);
+  text-decoration: none; 
+}
+
+.footer-links:active {
+  color: var(--primary-color);
+  text-decoration: none; 
 }
 
 .footer-menus li {
 	display: inline;
-	color: white;
+	color: var(--white-color);
 	left: -38px;
 	position: relative;
 }

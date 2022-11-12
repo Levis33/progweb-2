@@ -4,7 +4,7 @@ from donation.decorators import group_required
 from project.models import Usuario, Campanha, Doacao
 from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm
 from django.db.models import Q, Sum
-
+import datetime
 
 def home(request):
     context = {}
@@ -54,8 +54,15 @@ def editar_usuario(request, user_id):
 @login_required
 def campanhas_ativas(request):
     # campanhas = Campanha.objects.exclude(finalizado=True, campanha_finalizada=True)
-    campanhas =  Campanha.objects.exclude(Q(finalizado=True) | Q(campanha_finalizada=True))
-    context = {}
+    today = datetime.datetime.today()
+    campanhas =  Campanha.objects.exclude(Q(finalizado=True) | Q(data_fim__lte=today))
+    for campanha in campanhas:
+        valor_arrecadado = Doacao.objects.filter(id_campanha=campanha.id).aggregate(Sum('valor'))['valor__sum']
+        if valor_arrecadado == None:
+            valor_arrecadado = 0
+        campanha.valor_arrecadado = round(valor_arrecadado, 2)
+        campanha.valor_arrecadado_perc = int((valor_arrecadado / campanha.valor_necessario) * 100)
+    context = {'campanhas': campanhas}
     return render(request, 'campanha/campanhas.html', context=context)
 
 @login_required
@@ -96,7 +103,7 @@ def editar_campanha(request, id):
 @login_required
 def doar_campanha(request, id_campanha):
     context = {}
-    return render(request, 'doar_campanha.html', context=context)
+    return render(request, 'campanha/doar_campanha.html', context=context)
 
 def handler_403(request):
     return render(request, 'errors/403.html', status=403)
