@@ -80,6 +80,10 @@ body {
   flex-direction: column;
 }
 
+.obrigatorio { /* <span class="obrigatorio">*</span> */
+  color: red;
+  font-weight: bold;
+}
 
 .navbar {
   padding-top: 6px;

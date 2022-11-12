@@ -1,0 +1,84 @@
+{% extends 'base_generic.html' %}
+{% block title %} Gerenciar Campanhas {% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="row justify-content-between align-items-end">
+    <div class="col-8">
+        <h1 class="mt-3 mb-2 display-4">
+            <strong>Campanhas</strong>
+        </h1>
+    </div>
+</div>
+<hr class="mb-5">
+<table id="tabela_campanha" class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Nome da Campanha</th>
+            <th>Data de Inicio</th>
+            <th>Data de Fim</th>
+            <th>Valor necessário</th>
+            <th>Valor arrecadado</th>
+            <th>Finalizado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campanha in campanhas %}
+        <tr>
+            <td>
+                <a href="{% url 'editar_campanha' campanha.id %}">{{ campanha.nome }}</a>
+            </td>
+            <td>
+                {{ campanha.data_inicio}}
+            </td>
+            <td> 
+                {{ campanha.data_fim}}
+            </td>
+            <td class="">
+                R$ {{ campanha.valor_necessario }}
+            </td>
+            <td>
+                R$ {{ campanha.valor_arrecadado }}
+            </td>
+            <td>
+                {% if campanha.finalizado %}
+                    <span class="badge bg-danger" >Finalizado</span>
+                {% else %}
+                    <span class="badge bg-success" >Vigente</span>
+                {% endif %}
+                </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<script>
+$(document).ready(function() {
+    $('#tabela_campanha').DataTable({
+        
+
+    // configurações das mensagens da tabela
+    "language": { 
+        "lengthMenu": "Mostrar _MENU_ usuários por página",
+        "zeroRecords": "Não achamos nenhuma entrada com esse filtro",
+        "info": "Mostrando _PAGE_ de _PAGES_",
+        "infoEmpty": "Não há usuários com esse filtro",
+        "infoFiltered": "(filtrado de um total de _MAX_ usuários)",
+    "paginate": {
+        "first": "Primeiro",
+        "last": "Último",
+        "next": "Próximo",
+        "previous": "Anterior",
+    },
+    "loadingRecords": "Carregando...",
+    "search": "Filtrar:",
+    "aria": {
+        "sortAscending": ": Ative para ordenar a coluna de forma ascendente",
+        "sortDescending": ": Ative para odenar a coluna de forma descendente"
+        }
+    },
+});
+});
+
+</script>
+{% endblock %}

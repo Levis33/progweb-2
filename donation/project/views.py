@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from donation.decorators import group_required
-from project.models import Usuario
-from project.forms import  EditGerenciaUsuarioForm
+from project.models import Usuario, Campanha, Doacao
+from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm
+from django.db.models import Q, Sum
 
 
 def home(request):
@@ -51,19 +52,46 @@ def editar_usuario(request, user_id):
     return render(request, 'gerenciar_usuarios/editar_usuario.html', context=context)
 
 @login_required
-def campanhas(request):
+def campanhas_ativas(request):
+    # campanhas = Campanha.objects.exclude(finalizado=True, campanha_finalizada=True)
+    campanhas =  Campanha.objects.exclude(Q(finalizado=True) | Q(campanha_finalizada=True))
     context = {}
-    return render(request, 'campanha.html', context=context)
+    return render(request, 'campanha/campanhas.html', context=context)
 
 @login_required
+@group_required('Administrador')
+def gerenciar_campanhas(request):
+    campanhas = Campanha.objects.all()
+    for campanha in campanhas:
+        valor_arrecadado = Doacao.objects.filter(id_campanha=campanha.id).aggregate(Sum('valor'))['valor__sum']
+        if valor_arrecadado == None:
+            valor_arrecadado = 0
+        campanha.valor_arrecadado = valor_arrecadado
+        print(valor_arrecadado)
+    context = {'campanhas': campanhas}
+    return render(request, 'campanha/gerenciar_campanhas.html', context=context)
+
+@login_required
+@group_required('Administrador')
 def criar_campanha(request):
-    context = {}
-    return render(request, 'criar_campanha.html', context=context)
+    
+    form = CriarCampanhaForm(request.POST, request.FILES)
+    
+    if request.method == 'POST':
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('home')
+
+    context = {"form": form }
+    return render(request, 'campanha/criar_campanha.html', context=context)
 
 @login_required
-def editar_campanha(request):
+@group_required('Administrador')
+def editar_campanha(request, id):
     context = {}
-    return render(request, 'editar_campanha.html', context=context)
+    return render(request, 'campanha/editar_campanha.html', context=context)
 
 @login_required
 def doar_campanha(request, id_campanha):

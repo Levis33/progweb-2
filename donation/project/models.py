@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser
+from django.utils.timezone import now
+
 class Usuario(AbstractUser):
     email = models.EmailField('email_address', unique=True)
     nome = models.CharField(max_length=60)
@@ -13,10 +15,6 @@ class Usuario(AbstractUser):
 
 
 class Campanha(models.Model):
-    STATUS = (
-        ('A', 'Ativo'),
-        ('F', 'Finalizado'),
-    )
 
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=50)
@@ -28,9 +26,13 @@ class Campanha(models.Model):
     cidade = models.CharField(max_length=50)
     bairro = models.CharField(max_length=50)
     rua = models.CharField(max_length=50)
-    status = models.CharField(max_length=1, choices=STATUS)
+    finalizado = models.BooleanField(default=False)
     valor_necessario = models.DecimalField(max_digits=10, decimal_places=2)
     foto = models.BinaryField(blank=True, null=True, editable=True)
+    
+    @property
+    def campanha_finalizada(self):
+        return self.data_fim > now()
 
 class Doacao(models.Model):
     id = models.AutoField(primary_key=True)
