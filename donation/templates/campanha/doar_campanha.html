@@ -1,6 +1,112 @@
 {% extends 'base_generic.html' %}
-{% block title %} Gerenciar Campanhas {% endblock %}
+{% block title %} Doar {% endblock %}
 {% load static %}
 {% block content %}
+
+<head>
+    <!-- inputmask -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js'></script>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        font-family: 'Montserrat', sans-serif
+    }
+</style>
+
+<div class="container d-flex justify-content-center">
+    <div class="box-1 bg-light user">
+        <div class="box-inner-1 pb-3 mb-3 ">
+            <div class="d-flex justify-content-between mb-3">
+                <p class="fw-bold">{{ campanha.nome }}</p>
+            </div>
+            <div class="">
+                <div class="">
+                    <img src="{{ campanha.foto.url }}" class="d-block w-100"> 
+                </div>
+            </div>
+            <p class="dis my-3">{{ campanha.descricao }} </p>
+            <div>
+                <strong>Total restante para concluir a campanha:</strong>
+            </div>
+            <span class="money">R$ {{ campanha.falta }}</span>
+        </div>
+    </div>
+    <div class="box-2">
+        <div class="box-inner-2">
+            <div>
+                <p class="fw-bold">Detalhes da doação</p>
+                <p class="dis mb-3">Complete sua doação informando os dados do meio de pagamento</p>
+            </div>
+            <form novalidate action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <p class="dis fw-bold mb-2">Email</p>
+                    {{ form.email }}
+                    <span class="text-danger">{{ form.email.errors }}</span>
+                </div>
+                <p class="dis fw-bold mb-2">Cartão</p>
+                <div class="d-flex align-items-center justify-content-between card-atm border rounded">
+                    <div class="fa-solid fa-credit-card ps-3"></div>
+                    {{ form.cc_number }}
+                    
+                </div>
+                <span class="text-danger">{{ form.cc_number.errors }}</span>
+                <div class="row my-3">
+                        <p class="dis fw-bold mb-2 col-md-6">Validade</p>
+                        <p class="dis fw-bold mb-2 col-md-6">CVV</p>
+                        <div class="col-md-6">
+                            {{ form.cc_expiry }}
+                            <span class="text-danger">{{ form.cc_expiry.errors }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.cc_code }}
+                            <span class="text-danger">{{ form.cc_code.errors }}</span>
+                        </div>
+                </div>
+                <div class="my-3">
+                    <p class="dis fw-bold mb-2">Nome impresso no Cartão</p>
+                    {{ form.nome_titular }}
+                    <span class="text-danger">{{ form.nome_titular.errors }}</span>
+                </div>
+                <p class="dis fw-bold mb-3">CPF do Titular</p>
+                    {{ form.cpf_titular }}
+                    <span class="text-danger">{{ form.cpf_titular.errors }}</span>
+                <div class="my-3">
+                    <p class="dis fw-bold mb-2">Valor</p>
+                    {{ form.valor }}
+                    <span class="text-danger">{{ form.valor.errors }}</span>
+                </div>
+                <div class="d-flex flex-column dis">
+                    <button class="btn btn-primary mt-2" type="submit">Pagar R$ <span id="pagamento"> 00.00</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<script>
+    $('input[id*=cpf]').mask('000.000.000-00', {reverse: true}); 
+    $('input[id*=cc_number]').mask('0000 0000 0000 0000');
+    $('input[id*=cc_expiry]').mask('00/00');
+    $('input[id*=cc_code]').mask('0000');
+
+    const source = document.getElementById('campo_valor');
+    const result = document.getElementById('pagamento');
+
+    const inputHandler = function(e) {
+        result.innerHTML = e.target.value;
+    }
+
+    source.addEventListener('input', inputHandler);
+    source.addEventListener('propertychange', inputHandler);
+
+</script>
 
 {% endblock %}

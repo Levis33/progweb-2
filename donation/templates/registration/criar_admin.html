@@ -3,9 +3,13 @@
 {% load static %}
 {% block content %}
 
+<head>
+    <!-- inputmask -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js'></script>
+</head>
+
 <div class="container">
-
-
     <form class="" novalidate action="{% url 'criarAdmin' %}" method="post">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Cadastrar Administrador</h1>
         {% csrf_token %}
@@ -21,5 +25,8 @@
 
 </div>
 
+<script>
+    $('.cpf').mask('000.000.000-00', {reverse: true});
+  </script>
 
 {% endblock %}

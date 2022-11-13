@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractUser
-from django.utils.timezone import now
+from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeField
 
 class Usuario(AbstractUser):
     email = models.EmailField('email_address', unique=True)
@@ -34,5 +34,11 @@ class Doacao(models.Model):
     id = models.AutoField(primary_key=True)
     id_campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    email = models.EmailField('email_address')
+    cc_number = CardNumberField('card number')
+    cc_expiry = CardExpiryField('expiration date')
+    cc_code = SecurityCodeField('security code')
+    nome_cartao = models.CharField(max_length=50)
+    cpf_titular = models.CharField(max_length=14)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     data = models.DateTimeField(auto_now_add=True)

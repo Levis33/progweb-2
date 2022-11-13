@@ -2,9 +2,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from donation.decorators import group_required
 from project.models import Usuario, Campanha, Doacao
-from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampanhaForm
+from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampanhaForm, DoacaoForm
 from django.db.models import Q, Sum
 import datetime
+from django.contrib import messages
 
 def home(request):
     context = {}
@@ -62,6 +63,8 @@ def campanhas_ativas(request):
             valor_arrecadado = 0
         campanha.valor_arrecadado = round(valor_arrecadado, 2)
         campanha.valor_arrecadado_perc = int((valor_arrecadado / campanha.valor_necessario) * 100)
+        if campanha.valor_arrecadado_perc > 100:
+            campanha.valor_arrecadado_perc = 100
     context = {'campanhas': campanhas}
     return render(request, 'campanha/campanhas.html', context=context)
 
@@ -87,7 +90,7 @@ def criar_campanha(request):
 
         if form.is_valid():
             form.save()
-
+            messages.success(request, f" Você criou a campanha {form.cleaned_data['nome']} com sucesso! ", extra_tags='alert-success')
             return redirect('home')
 
     context = {"form": form }
@@ -111,7 +114,37 @@ def editar_campanha(request, id_campanha):
 
 @login_required
 def doar_campanha(request, id_campanha):
-    context = {}
+
+    form = DoacaoForm(request.POST or None)
+    campanha = get_object_or_404(Campanha, id=id_campanha)
+    
+    valor_arrecadado = Doacao.objects.filter(id_campanha=campanha.id).aggregate(Sum('valor'))['valor__sum']
+    if valor_arrecadado == None:
+        valor_arrecadado = 0
+    falta = campanha.valor_necessario - valor_arrecadado
+    if falta < 0:
+        falta = 0
+    campanha.falta = round(falta, 2)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            doacao = Doacao(
+                id_campanha=campanha,
+                id_usuario=request.user,
+                data=datetime.datetime.today(),
+                valor=form.cleaned_data['valor'],
+                cc_number=form.cleaned_data['cc_number'],
+                cc_expiry=form.cleaned_data['cc_expiry'],
+                cc_code=form.cleaned_data['cc_code'],
+                nome_cartao=form.cleaned_data['nome_titular'],
+                cpf_titular=form.cleaned_data['cpf_titular'],
+                email=form.cleaned_data['email'],
+            )
+            doacao.save()
+            messages.success(request, f" Você doou R${form.cleaned_data['valor']} para a campanha {campanha.nome} com sucesso! ", extra_tags='alert-success')
+            return redirect('home')
+
+    context = {'campanha': campanha, 'form': form}
     return render(request, 'campanha/doar_campanha.html', context=context)
 
 def handler_403(request):

@@ -7,11 +7,15 @@
         {% load static %}
         {% load custom_tags %}
         
-        <!-- JQuery -->
-        <script type="text/javascript" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+        <!-- inputmask -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js'></script>
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         
         <!-- Datatables CSS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/r-2.2.9/sc-2.0.5/sp-1.4.0/datatables.min.css"/>
@@ -29,23 +33,11 @@
         <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
         <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
-
         <!-- Datatables Js + JQuery -->
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.11.3/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/r-2.2.9/sc-2.0.5/sp-1.4.0/datatables.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-        <!-- Moment.js: -->
-        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/plug-ins/1.10.10/sorting/datetime-moment.js"></script>
-        
-        <!-- inputmask -->
-        <script src="https://rawgit.com/RobinHerbots/Inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-
-        <!-- Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        
     </head>
 
 <body>
@@ -143,7 +135,7 @@
                 <ul class="list-unstyled ">
                     <a class="footer-links" href="{% url 'home' %}"><p><i class="fa-solid fa-house"></i></i> Home</p></a>
                     <a class="footer-links" href="{% url 'campanhas' %}"><p><i class="fa-solid fa-hand-holding-heart"></i> Campanhas</p></a>
-                    <a class="footer-links" href="#"><p><i class="fa-solid fa-book"></i></i> FAQ</p></a>
+                    <a class="footer-links" href="{% url 'faq' %}"><p><i class="fa-solid fa-book"></i> FAQ</p></a>
                 </ul>
             </div>
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
