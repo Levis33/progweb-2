@@ -20,6 +20,7 @@
             <th>Valor necessário</th>
             <th>Valor arrecadado</th>
             <th>Finalizado</th>
+            <th>Excluir</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +47,10 @@
                 {% else %}
                     <span class="badge bg-success" >Vigente</span>
                 {% endif %}
-                </td>
+            </td>
+            <td>
+                <a href="{% url 'excluir_campanha' campanha.id %}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

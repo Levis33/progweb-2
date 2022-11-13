@@ -112,6 +112,11 @@ def editar_campanha(request, id_campanha):
     context = {'form': form}
     return render(request, 'campanha/editar_campanha.html', context=context)
 
+def excluir_campanha(request, id_campanha):
+    campanha = get_object_or_404(Campanha, id=id_campanha)
+    campanha.delete()
+    return redirect('gerenciar_campanhas')
+
 @login_required
 def doar_campanha(request, id_campanha):
 
