@@ -52,10 +52,10 @@
     <nav class="navbar navbar-expand-lg bg-light shadow-lg">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="images/logo.png" class="logo img-fluid" alt="">
+                <img src="{% static 'images/logo.jpg' %}" class="logo img-fluid" alt="">
                 <span>
                     Donation
-                    <small>Non-profit Organization</small>
+                    <small>Organização sem fins lucrativos</small>
                 </span>
             </a>
             {% if not user.is_authenticated %}
@@ -141,10 +141,9 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                 <h5 class="footer-titles text mb-4">Links</h5>
                 <ul class="list-unstyled ">
-                    <li><a class="footer-links" href="{% url 'home' %}">Home</a></li>
-                    <li><a class="footer-links" href="{% url 'campanhas' %}">Campanhas</a></li>
-                    <li><a class="footer-links" href="#">Como Doar</a></li>
-                    <li><a class="footer-links" href="#">FAQ</a></li>
+                    <a class="footer-links" href="{% url 'home' %}"><p><i class="fa-solid fa-house"></i></i> Home</p></a>
+                    <a class="footer-links" href="{% url 'campanhas' %}"><p><i class="fa-solid fa-hand-holding-heart"></i> Campanhas</p></a>
+                    <a class="footer-links" href="#"><p><i class="fa-solid fa-book"></i></i> FAQ</p></a>
                 </ul>
             </div>
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">

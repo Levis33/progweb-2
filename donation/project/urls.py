@@ -8,7 +8,7 @@ urlpatterns = [
     path('campanhas/', views.campanhas_ativas, name='campanhas'),
     path('gerenciarcampanhas/', views.gerenciar_campanhas, name='gerenciar_campanhas'),
     path('criarcampanha/', views.criar_campanha, name='criar_campanha'),
-    path('editarcampanha/<int:id>', views.editar_campanha, name='editar_campanha'),
+    path('editarcampanha/<int:id_campanha>', views.editar_campanha, name='editar_campanha'),
 
     path('doar/<int:id_campanha>', views.doar_campanha, name='doar_campanha'),
 

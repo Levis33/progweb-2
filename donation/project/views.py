@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from donation.decorators import group_required
 from project.models import Usuario, Campanha, Doacao
-from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm
+from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampanhaForm
 from django.db.models import Q, Sum
 import datetime
 
@@ -74,7 +74,6 @@ def gerenciar_campanhas(request):
         if valor_arrecadado == None:
             valor_arrecadado = 0
         campanha.valor_arrecadado = valor_arrecadado
-        print(valor_arrecadado)
     context = {'campanhas': campanhas}
     return render(request, 'campanha/gerenciar_campanhas.html', context=context)
 
@@ -82,7 +81,7 @@ def gerenciar_campanhas(request):
 @group_required('Administrador')
 def criar_campanha(request):
     
-    form = CriarCampanhaForm(request.POST, request.FILES)
+    form = CriarCampanhaForm(request.POST or None, request.FILES)
     
     if request.method == 'POST':
 
@@ -96,8 +95,18 @@ def criar_campanha(request):
 
 @login_required
 @group_required('Administrador')
-def editar_campanha(request, id):
-    context = {}
+def editar_campanha(request, id_campanha):
+    
+    campanha = get_object_or_404(Campanha, id=id_campanha)
+    
+    form = EditCampanhaForm(request.POST or None, request.FILES or None, instance=campanha)
+    
+    if form.is_valid():
+        if form.has_changed():
+            form.save()
+            return redirect('home')
+    
+    context = {'form': form}
     return render(request, 'campanha/editar_campanha.html', context=context)
 
 @login_required

@@ -5,17 +5,14 @@
 
 <div class="container">
     <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Criar Campanha</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <div class="col-md-6 offset-md-3">
             {% for field in form %}
                 <p>{{ field.label }}<span class="obrigatorio">*</span></p>
                 {{ field }}
-                <!-- {% if field.errors %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ field.errors }}
-                    </div>
-                {% endif %} -->
+                <span class="text-danger">{{ field.errors }}</span>
+                <br>
             {% endfor %}
         </div>
         <br><br>

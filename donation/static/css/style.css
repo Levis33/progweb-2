@@ -183,6 +183,16 @@ body {
   text-transform: uppercase;
 }
 
+.navbar-brand:hover {
+  background: transparent;
+  color: var(--primary-color);
+}
+
+.navbar-brand:active {
+  color: var(--primary-color);
+  text-decoration: none; 
+}
+
 .logo {
   width: 80px;
   height: auto;

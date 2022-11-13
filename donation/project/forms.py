@@ -24,7 +24,7 @@ class CriarCampanhaForm(forms.ModelForm):
     rua = forms.CharField(label='Rua', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_rua'}))
     valor_necessario = forms.DecimalField(label='Valor Necessário', required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'id': 'campo_valor_necessario'}))
     descricao = forms.CharField(label='Descrição', required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'campo_descricao'}))
-    foto = forms.ImageField(label='Foto', required=False, widget=forms.FileInput(attrs={'class': 'form-control', 'id': 'campo_foto'}))
+    foto = forms.ImageField(label='Foto', required=True, widget=forms.FileInput(attrs={'class': 'form-control', 'id': 'campo_foto'}))
     # finalizado = forms.BooleanField(label="Finalizar Evento", required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id': 'campo_finalizar_evento'}))
 
     class Meta:
@@ -34,7 +34,44 @@ class CriarCampanhaForm(forms.ModelForm):
     def clean_data_ida(self):
         data_ida = self.cleaned_data['data_ida']
         data_volta = self.cleaned_data['data_fim']
+        print('fake')
         if data_ida > data_volta:
+            print('testeee')
+            raise ValidationError("A data de início precisa ser antes da data de finalização")
+        return self.cleaned_data['data_ida']
+    
+    def clean_valor_necessario(self):
+        valor = self.cleaned_data['valor_necessario']
+        if valor < 1:
+            raise ValidationError('Esse valor é muito baixo, por favor coloque um valor maior')
+        return valor
+
+
+class EditCampanhaForm(forms.ModelForm):
+    nome = forms.CharField(label='Nome do evento de Doação', required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_nome_evento'}))
+    data_inicio = forms.DateField(label='Data de Início', required=True, widget=forms.DateInput(attrs={ 'class': 'form-control', 'id': 'campo_data_inicio'}))
+    data_fim = forms.DateField(label='Data de Fim', required=True, widget=forms.DateInput(attrs={ 'class': 'form-control', 'id': 'campo_data_fim'}))
+    CEP = forms.CharField(label='CEP', max_length=8, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_cep'}))
+    uf = forms.CharField(label="Estado", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_uf'}))
+    cidade = forms.CharField(label='Cidade', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_cidade'}))
+    bairro = forms.CharField(label='Bairro', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_bairro'}))
+    rua = forms.CharField(label='Rua', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_rua'}))
+    valor_necessario = forms.DecimalField(label='Valor Necessário', required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'id': 'campo_valor_necessario'}))
+    descricao = forms.CharField(label='Descrição', required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'campo_descricao'}))
+    foto = forms.ImageField(label='Foto', required=True, widget=forms.FileInput(attrs={'class': 'form-control', 'id': 'campo_foto'}))
+    finalizado = forms.BooleanField(label="Finalizar Evento", required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id': 'campo_finalizar_evento'}))
+
+    class Meta:
+        model = Campanha
+        fields = ['nome', 'data_inicio', 'data_fim', 'CEP', 'uf', 'cidade', 'bairro', 'rua', 'valor_necessario', 'descricao', 'foto', 'finalizado']
+
+
+    def clean_data_ida(self):
+        data_ida = self.cleaned_data['data_ida']
+        data_volta = self.cleaned_data['data_fim']
+        print('fake')
+        if data_ida > data_volta:
+            print('testeee')
             raise ValidationError("A data de início precisa ser antes da data de finalização")
         return self.cleaned_data['data_ida']
     

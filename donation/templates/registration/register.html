@@ -17,7 +17,7 @@
         <div class="">
             {{ field }}
         </div>
-        <span class="text-danger">{{ field.errors }}</span> 
+        <span class="text-danger">{{ field.errors }}</span>
         {% endfor %}
         <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Criar conta</button>
         <a href="{% url 'login' %}" id="cancel_signup"><i class="fas fa-angle-left"></i> Voltar</a>
