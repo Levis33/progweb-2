@@ -28,7 +28,7 @@ class Campanha(models.Model):
     rua = models.CharField(max_length=50)
     finalizado = models.BooleanField(default=False)
     valor_necessario = models.DecimalField(max_digits=10, decimal_places=2)
-    foto = models.BinaryField(blank=True, null=True, editable=True)
+    foto = models.ImageField(blank=True, null=True)
 
 class Doacao(models.Model):
     id = models.AutoField(primary_key=True)

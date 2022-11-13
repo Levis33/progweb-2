@@ -5,7 +5,7 @@
 
 <div class="container">
     <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Criar Campanha</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="col-md-6 offset-md-3">
             {% for field in form %}
