@@ -81,6 +81,14 @@ body {
   background-color: #cccccc;
 }
 
+.table{
+  background-color: #fff;
+}
+
+.card-atm{
+  background-color: #fff;
+}
+
 .obrigatorio { /* <span class="obrigatorio">*</span> */
   color: red;
   font-weight: bold;
