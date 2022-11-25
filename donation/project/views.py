@@ -84,7 +84,7 @@ def gerenciar_campanhas(request):
 @group_required('Administrador')
 def criar_campanha(request):
     
-    form = CriarCampanhaForm(request.POST or None, request.FILES)
+    form = CriarCampanhaForm(request.POST or None, request.FILES or None)
     
     if request.method == 'POST':
 
