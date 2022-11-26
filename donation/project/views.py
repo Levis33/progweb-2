@@ -8,7 +8,11 @@ import datetime
 from django.contrib import messages
 
 def home(request):
-    context = {}
+    campanhas_destaque = Campanha.objects.all().order_by("data_inicio")[:3]
+    print(campanhas_destaque)
+    context = {
+        "campanhas_destaque": campanhas_destaque
+    }
     return render(request, 'home.html', context=context)
 
 def faq(request):
