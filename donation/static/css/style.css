@@ -78,7 +78,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #cccccc;
+  background-color: #e9e9e9;
 }
 
 .table{

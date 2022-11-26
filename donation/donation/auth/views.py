@@ -1,16 +1,12 @@
-from donation.mailer import alert_staff
+
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import logout
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from donation.mailer import send_email
 from django.contrib.auth.models import User
 from donation.auth.forms import registerForm
 from donation.decorators import group_required
-
-from logger.models import LogEvents
-from logger.functions import log_event
 
 from django.contrib.auth import get_user_model
 
@@ -22,12 +18,10 @@ class PasswordChangeView(views.PasswordChangeView):
         response = super().post(request)
 
         if response.status_code == 302:
-            send_email(request.user.email, 3, {
-                'user': request.user
-            })
-
-        log_event(request, LogEvents.USER_CHANGED_PASSWORD)
-
+            # send_email(request.user.email, 3, {
+            #     'user': request.user
+            # })
+            pass
         return response
 
 
