@@ -8,12 +8,12 @@
 
 <div class="row">
     {% for campanha in campanhas %}
-    <div class="col-lg-4 col-md-4 project-wrap">
+    <div class="card col-lg-4 col-md-4 project-wrap" style="background-color: white;">
         <div class="single-project">
             <div class="content">
                 <a href="#" target="_blank">
-                  <div class="content-overlay"></div>
-                       <img class="content-image img-fluid d-block mx-auto" src="{{ campanha.foto.url }}" alt="ten">
+                  <div class="content-overlay mt-3"></div>
+                       <img class="content-image img-fluid d-block mx-auto" width="200" height="200" src="{{ campanha.foto.url }}" alt="ten">
                 </a>
              </div>
         </div>
@@ -29,7 +29,9 @@
             <h2 class="titles">{{ campanha.nome }}</h2>
             <p>{{ campanha.descricao }}</p>
         </div>
-        <p><a href="{% url 'doar_campanha' campanha.id %}" class="btn btn-success">Doar agora!</a></p>
+        <div class="prices d-flex justify-content-center">
+            <p><a href="{% url 'doar_campanha' campanha.id %}" class="btn btn-success" >Doar agora!</a></p>
+        </div>
     </div>
     {% endfor %}
 </div>

@@ -17,10 +17,13 @@
 </div>
 {% endfor %} {% endif %}
 
+<div class="container" >
+  <h1 class="h4 mb-3 font-weight-normal" >Último gás...</h1>
+</div>
+<div class="row" style="justify-content: space-around; align-items: center;">
  {% for campanha in campanhas_destaque %}
-<div class="container mt-8 mb-3">
-  <div class="row">
-    <div class="col-md-4">
+<div class=" mt-8 mb-3" style="width: 350px; height: max-content;">
+  
       <div class="card p-3 mb-2">
         <div class="d-flex justify-content-between">
           <div class="d-flex flex-row align-items-center">
@@ -41,9 +44,11 @@
           <div class="badge"><span>{{campanha.uf}}</span></div>
         </div>
         <div class="mt-5">
-          {%if campanha.descricao != "nenhuma descrição"%}
-          <h3 class="heading">{{campanha.descricao}}</h3>
-          {%endif%}
+          <h5 class="heading">
+            {%if campanha.descricao != "nenhuma descrição"%}
+            {{campanha.descricao}}
+            {%endif%}
+          </h5>
 
           <div class="mt-5">
             <div class="progress">
@@ -65,10 +70,9 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    
 </div>
 {% endfor %}
-
+</div>
 <!-- aqui -->
 {% endblock %}
