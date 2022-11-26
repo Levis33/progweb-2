@@ -9,10 +9,15 @@ from django.contrib import messages
 
 def home(request):
     campanhas_destaque = Campanha.objects.all().order_by("data_inicio")[:3]
-    print(campanhas_destaque)
-    context = {
-        "campanhas_destaque": campanhas_destaque
-    }
+    for campanha in campanhas_destaque:
+        valor_arrecadado = Doacao.objects.filter(id_campanha=campanha.id).aggregate(Sum('valor'))['valor__sum']
+        if valor_arrecadado == None:
+            valor_arrecadado = 0
+        campanha.valor_arrecadado = valor_arrecadado
+        campanha.valor_arrecadado_perc = int((valor_arrecadado / campanha.valor_necessario) * 100)
+        if campanha.valor_arrecadado_perc > 100:
+            campanha.valor_arrecadado_perc = 100
+    context = {'campanhas_destaque': campanhas_destaque}
     return render(request, 'home.html', context=context)
 
 def faq(request):
