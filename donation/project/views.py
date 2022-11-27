@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from donation.decorators import group_required
-from project.models import Usuario, Campanha, Doacao
-from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampanhaForm, DoacaoForm
+from project.models import Usuario, Campanha, Doacao, MensagemFAQ
+from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampanhaForm, DoacaoForm, FAQform
 from django.db.models import Q, Sum
 import datetime
 from django.contrib import messages
@@ -36,8 +36,27 @@ def home(request):
     return render(request, 'home.html', context=context)
 
 def faq(request):
-    context = {}
-    return render(request, 'faq.html', context=context)
+    form = FAQform(request.POST or None)
+    
+    if request.method == 'POST':
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"{form.cleaned_data['nome']}, sua mensagem foi enviada com sucesso! ", extra_tags='alert-success')
+            return redirect('home')
+
+    context = {"form" : form}
+    return render(request, 'faq/faq.html', context=context)
+
+@login_required
+@group_required('Administrador')
+def mensagensFAQ(request):
+    mensagens = MensagemFAQ.objects.all().order_by('-id')
+
+    context = {
+        'mensagens': mensagens,
+    }
+    return render(request, 'faq/mensagens_faq.html', context=context)
 
 @login_required
 @group_required('Administrador')

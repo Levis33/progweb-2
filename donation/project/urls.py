@@ -5,6 +5,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('faq/', views.faq, name='faq'),
 
+    path('mensagens/', views.mensagensFAQ, name='mensagensFAQ'),
+
     path('campanhas/', views.campanhas_ativas, name='campanhas'),
     path('gerenciarcampanhas/', views.gerenciar_campanhas, name='gerenciar_campanhas'),
     path('criarcampanha/', views.criar_campanha, name='criar_campanha'),

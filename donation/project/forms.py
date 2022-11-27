@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from project.models import Usuario, Campanha
+from project.models import Usuario, Campanha, MensagemFAQ
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from validate_docbr import CPF
@@ -59,7 +59,7 @@ class EditCampanhaForm(forms.ModelForm):
     bairro = forms.CharField(label='Bairro', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_bairro'}))
     rua = forms.CharField(label='Rua', max_length=70, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'campo_rua'}))
     valor_necessario = forms.DecimalField(label='Valor Necessário', required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'id': 'campo_valor_necessario'}))
-    descricao = forms.CharField(label='Descrição', required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'campo_descricao'}))
+    descricao = forms.CharField(label='Descrição',  max_length=100, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'campo_descricao'}))
     foto = forms.ImageField(label='Foto', required=True, widget=forms.FileInput(attrs={'class': 'form-control', 'id': 'campo_foto'}))
     finalizado = forms.BooleanField(label="Finalizar Evento", required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id': 'campo_finalizar_evento'}))
 
@@ -128,3 +128,13 @@ class DoacaoForm(forms.Form):
         if not(CPF().validate(doc_teste)):
             raise ValidationError('CPF inválido')
         return doc_num
+
+
+class FAQform(forms.ModelForm):
+    email = forms.EmailField(required=True, max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control'}), error_messages={'required': 'Por favor entre um email válido'})
+    descricao = forms.CharField(label='Descrição', max_length=200, required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'campo_descricao'}))
+    nome = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = MensagemFAQ
+        fields = ['email', 'descricao', 'nome']

@@ -90,6 +90,7 @@
                             
                             <li><a class="dropdown-item" href="{% url 'gerenciar_usuarios' %}">Gerenciar Usuários</a></li>
                             <li><a class="dropdown-item" href="{% url 'criarAdmin' %}">Criar Administrador</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mensagensFAQ' %}">Mensagens FAQ</a></li>
                             {% endif %}
                             <form class="logout-link" action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
