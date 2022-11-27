@@ -1,6 +1,8 @@
 {% extends 'base_generic.html' %} {% load static %}
 <!-- {% block title %}Página Inicial{% endblock %} -->
-{% block content %} {% if messages %} {% for message in messages %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
 <div class="my-3">
   <div
     class="alert {{ message.tags }} alert-dismissible fade show"
@@ -15,7 +17,26 @@
     <strong class="d-flex justify-content-center"> {{ message }} </strong>
   </div>
 </div>
-{% endfor %} {% endif %} {%if campanhas_destaque%}
+{% endfor %} 
+{% endif %} 
+
+<div class="px-4 py-5 my-5 text-center">
+  <img src="{% static 'images/logo.jpg' %}" class="logo img-fluid" alt="" />
+  <h1 class="display-5 fw-bold">Donation</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      A plataforma Donation é meio que achamos de ajudar pessoas! Como o ditado
+      diz gentileza gera...
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="{% url 'campanhas' %}" class="btn btn-success">Gentileza</a>
+    </div>
+  </div>
+</div>
+
+<hr class="featurette-divider">
+
+{%if campanhas_destaque%}
 <div class="container">
   <h1 class="h4 mb-3 font-weight-normal d-flex justify-content-center">
     Último gás...
@@ -84,23 +105,12 @@
   </div>
   {% endfor %}
 </div>
-{%endif%}
-
-<div class="px-4 py-5 my-5 text-center">
-  <img src="{% static 'images/logo.jpg' %}" class="logo img-fluid" alt="" />
-  <h1 class="display-5 fw-bold">Donation</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">
-      A plataforma Donation é meio que achamos de ajudar pessoas! Como o ditado
-      diz gentileza gera...
-    </p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <a href="{% url 'campanhas' %}" class="btn btn-success">Gentileza</a>
-    </div>
-  </div>
-</div>
 
 <hr class="featurette-divider">
+
+{%endif%}
+
+
 
 <div class="row featurette px-5">
   <div class="col-md-7 mt-3">

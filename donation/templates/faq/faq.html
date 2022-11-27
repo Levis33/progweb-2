@@ -1,12 +1,15 @@
-{% extends 'base_generic.html' %} {% block title %} FAQ {% endblock %} {% load
-static %} {% block content %}
+{% extends 'base_generic.html' %}
+{% block title %} FAQ {% endblock %}
+{% load static %} 
+{% load custom_tags %}
+{% block content %}
 <section>
   <h3 class="text-center mb-4 pb-2 fw-bold" style="color: var(--primary-color);">FAQ</h3>
   <p class="text-center mb-5">
     Respostas a perguntas comuns sobre a nossa plataforma.
   </p>
 
-  <h4 class="mb-4 pb-2 fw-bold" style="color: var(--primary-color);">Usuários</h4>
+  <h4 class="mb-4 pb-2 fw-bold" style="color: black;">Usuários</h4>
 
   <div class="row">
     <div class="col-md-6 col-lg-4 mb-4">
@@ -37,7 +40,9 @@ static %} {% block content %}
       </p>
     </div>
 
-    <h4 class="mb-4 pb-2 fw-bold" style="color: var(--primary-color);">Administradores</h4>
+    {% if request.user|has_group:"Administrador" %}
+
+    <h4 class="mb-4 pb-2 fw-bold" style="color: black">Administradores</h4>
 
     <div class="col-md-6 col-lg-4 mb-4">
       <h6 class="mb-3" style="color: var(--primary-color);">
@@ -72,6 +77,9 @@ static %} {% block content %}
          da nossa plataforma: 
       </p>
     </div>
+
+    {% endif %}
+
   </div>
 </section>
 
