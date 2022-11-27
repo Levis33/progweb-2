@@ -42,3 +42,10 @@ class Doacao(models.Model):
     cpf_titular = models.CharField(max_length=14)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     data = models.DateTimeField(auto_now_add=True)
+
+
+class MensagemFAQ(models.Model):
+    id = models.AutoField(primary_key=True)
+    email = models.EmailField('email_address')
+    nome = models.CharField(max_length=50)
+    descricao = models.TextField(max_length=200)
