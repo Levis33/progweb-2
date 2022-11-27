@@ -6,17 +6,32 @@ from project.forms import  EditGerenciaUsuarioForm, CriarCampanhaForm, EditCampa
 from django.db.models import Q, Sum
 import datetime
 from django.contrib import messages
+from datetime import date
 
-def home(request):
-    campanhas_destaque = Campanha.objects.all().order_by("data_inicio")[:3]
-    for campanha in campanhas_destaque:
-        valor_arrecadado = Doacao.objects.filter(id_campanha=campanha.id).aggregate(Sum('valor'))['valor__sum']
+def filter_campanhas():
+    data_atual = date.today()
+    campanhas = Campanha.objects.all().order_by('data_fim')
+    campanhas_filtered =[]
+    for item in campanhas:
+        item.data = item.data_fim-data_atual
+        valor_arrecadado = Doacao.objects.filter(id_campanha=item.id).aggregate(Sum('valor'))['valor__sum']
         if valor_arrecadado == None:
             valor_arrecadado = 0
-        campanha.valor_arrecadado = valor_arrecadado
-        campanha.valor_arrecadado_perc = int((valor_arrecadado / campanha.valor_necessario) * 100)
-        if campanha.valor_arrecadado_perc > 100:
-            campanha.valor_arrecadado_perc = 100
+        item.valor_arrecadado = valor_arrecadado
+        item.valor_arrecadado_perc = int((valor_arrecadado / item.valor_necessario) * 100)
+        if item.valor_arrecadado_perc > 100:
+            item.valor_arrecadado_perc = 100
+        if(item.data.days > 0 and item.data.days < 10 and item.valor_necessario != item.valor_arrecadado):
+            campanhas_filtered.append(item)
+
+    for campanhas in campanhas_filtered:
+        print(campanhas.data)
+        
+    return campanhas_filtered
+
+def home(request):
+    filter_campanhas()
+    campanhas_destaque = filter_campanhas()[:3]
     context = {'campanhas_destaque': campanhas_destaque}
     return render(request, 'home.html', context=context)
 
