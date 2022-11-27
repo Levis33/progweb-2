@@ -56,7 +56,7 @@
                         <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Sobre</a>
+                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Perguntas frequentes</a>
                     </li>
                     <li class="nav-item ms-3">
                         <a class="nav-link click-scroll" href="{% url 'login' %}">Login</a>
@@ -73,7 +73,7 @@
                         <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Sobre</a>
+                        <a class="nav-link click-scroll" href="{% url 'faq' %}">Perguntas frequentes</a>
                     </li>
                     {% if request.user|has_group:"Administrador" %}
                     <li class="nav-item">

@@ -1,5 +1,86 @@
 {% extends 'base_generic.html' %} {% block title %} FAQ {% endblock %} {% load
 static %} {% block content %}
+<section>
+  <h3 class="text-center mb-4 pb-2 fw-bold" style="color: var(--primary-color);">FAQ</h3>
+  <p class="text-center mb-5">
+    Respostas a perguntas comuns sobre a nossa plataforma.
+  </p>
+
+  <h4 class="mb-4 pb-2 fw-bold" style="color: var(--primary-color);">Usuários</h4>
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3 " style="color: var(--primary-color);">
+        <i class="fas fa-home  pe-2" style="color: var(--primary-color);"></i> O que é a Donation?
+      </h6>
+      <p>
+        Somos uma plataforma de arrecadação de fundos <strong><u>sem fins lucrativos</u>.</strong> Disponível para qualquer pessoa que queira ajudar a quem precisa.
+      </p>
+    </div>
+
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3 " style="color: var(--primary-color);">
+        <i class="fas fa-rocket  pe-2" style="color: var(--primary-color);"></i> Como faço para doar?
+      </h6>
+      <p>
+        É muito simples! Basta acessar essa <a href="{%url 'campanhas' %}" style="color: black"> <strong><u>página</u></strong>.
+        </a></p>
+      
+    </div>
+
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3 " style="color: var(--primary-color);">
+        <i class="fas fa-book-open  pe-2" style="color: var(--primary-color);"></i> Existe algum auxilio para campanhas próximas ao fim?
+      </h6>
+      <p>
+        Claro! Temos um sistema que exibe as campanhas com menos de 10 dias de expiração para turbinar as doações na nossa <a href="{%url 'home' %}" style="color: black"><strong>página principal.</strong></a>
+      </p>
+    </div>
+
+    <h4 class="mb-4 pb-2 fw-bold" style="color: var(--primary-color);">Administradores</h4>
+
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3" style="color: var(--primary-color);">
+        <i class="far fa-paper-plane  pe-2" style="color: var(--primary-color);"></i> Como criar uma campanha?
+      </h6>
+      <p>
+        Desenvolvemos a plataforma para que você possa criar campanhas de maneira muito simples... basta preenchar
+        o formulário desta <a href="{%url 'criar_campanha' %}" style="color: black"> <strong><u>Página!</u></strong>.
+        </a></p>
+    </div>
+
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3 " style="color: var(--primary-color);">
+        <i class="fas fa-pen-alt  pe-2" style="color: var(--primary-color);"></i> Qual o status da minha campanha?
+      </h6>
+      <p>
+        você pode conferir e gerenciar o status de sua campanha apenas com um 
+        <a href="{%url 'gerenciar_campanhas' %}" style="color: black"> <strong><u>clique.</u></strong>
+        </a></p>
+        
+      </p>
+    </div>
+    
+    <div class="col-md-6 col-lg-4 mb-4">
+      <h6 class="mb-3 " style="color: var(--primary-color);">
+        <i class="fas fa-user  pe-2" style="color: var(--primary-color);"></i> Onde posso trocar a permissão de um usuário?
+      </h6>
+      <p>
+        Basta acessar a sessâo de 
+        <a href="{%url 'gerenciar_usuarios' %}" style="color: black"> <strong><u>gerenciamento de usuários</u></strong>
+        </a>
+         da nossa plataforma: 
+      </p>
+    </div>
+  </div>
+</section>
+
+<h3 class="text-center mt-5 mb-4 pb-2 fw-bold" style="color: var(--primary-color);">Suas dúvidas</h3>
+
+<p class="text-center mb-5">
+  Caso não tenha encontrado a resposta para sua dúvida, preencha o formulário abaixo que em poucas horas entraremos em contato com você.
+</p>
+
 <form action="" method="POST" enctype="multipart/form-data" novalidate>
   {% csrf_token %}
   <div class="col-md-6 offset-md-3">

@@ -16,9 +16,9 @@
   </div>
 </div>
 {% endfor %} {% endif %}
-
+{%if campanhas_destaque%}
 <div class="container">
-  <h1 class="h4 mb-3 font-weight-normal">Último gás...</h1>
+  <h1 class="h4 mb-3 font-weight-normal d-flex justify-content-center">Último gás...</h1>
 </div>
 <div class="row justify-content-around">
   {% for campanha in campanhas_destaque %}
@@ -85,5 +85,7 @@
   </div>
   {% endfor %}
 </div>
+{%endif%}
+
 <!-- aqui -->
 {% endblock %}
