@@ -505,21 +505,19 @@ footer {
   font-size: 39px
 }
 
-.badge span {
-  background-color: #fffbec;
-  width: 60px;
-  height: 25px;
-  padding-bottom: 3px;
-  border-radius: 5px;
-  display: flex;
-  color: #fed85d;
-  justify-content: center;
-  align-items: center
-}
-
 .progress {
   height: 15px;
   border-radius: 10px
+}
+
+.badge {
+  background-color: pink ;
+  font-size: small;
+  font-weight: initial;
+  padding-inline: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius:6px;
 }
 
 .progress div {

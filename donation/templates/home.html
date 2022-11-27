@@ -20,62 +20,65 @@
 <div class="container">
   <h1 class="h4 mb-3 font-weight-normal">Último gás...</h1>
 </div>
-<div class="row" style="justify-content: space-around; align-items: center">
+<div class="row justify-content-around">
   {% for campanha in campanhas_destaque %}
-  <div class="mt-8 mb-3" style="width: 350px; height: max-content">
-    <div class="card p-3 mb-2">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex flex-row align-items-center">
-          <div class="icon">
-            <img
-              class="content-image img-fluid d-block mx-auto"
-              src="{{ campanha.foto.url }}"
-              alt="ten"
-              width="200"
-              height="200"
-            />
-          </div>
-          <div class="ms-3 c-details">
-            <h6 class="mb-0">{{campanha.nome}}</h6>
-            <span>Data de fim:<br />{{campanha.data_fim}}</span>
-          </div>
+  <div
+    class="card mt-8 mb-3 project-wrap justify-content-between"
+    style="width: 350px; background-color: white"
+  >
+    <div class="d-flex justify-content-between mt-3">
+      <div class="d-flex flex-row align-items-center">
+        <div class="icon">
+          <img
+            class="content-image img-fluid d-block mx-auto"
+            src="{{ campanha.foto.url }}"
+            alt="ten"
+            width="200"
+            height="200"
+          />
         </div>
-        <div class="badge"><span>{{campanha.uf}}</span></div>
+        <div class="ms-3 c-details">
+          <h6 class="mb-0">{{campanha.nome}}</h6>
+          <span>Data de fim:<br />{{campanha.data_fim}}</span>
+        </div>
       </div>
-      <div class="mt-5">
-        <h5 class="heading">
-          {%if campanha.descricao != "nenhuma descrição"%}
-          {{campanha.descricao}} {%endif%}
-        </h5>
+      <div>
+        <h6 class="badge">
+          {{campanha.uf}}
+        </h6>
+    </div>
+    </div>
+    <div class="mt-3">
+      <h6>
+        {%if campanha.descricao != "nenhuma descrição"%} {{campanha.descricao}}
+        {%endif%}
+      </h6>
 
-        <div class="mt-5">
-          <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="width: {{ campanha.valor_arrecadado_perc }}%"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-          <div class="mt-3">
-            <span class="text1"
-              >R$ {{ campanha.valor_arrecadado }}
-              <span class="text2"
-                >de R$ {{campanha.valor_necessario}}</span
-              ></span
+      <div class="mt-3 justify-content-around">
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width: {{ campanha.valor_arrecadado_perc }}%"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        <div class="details">
+          <span class="text1"
+            >R$ {{ campanha.valor_arrecadado }}
+            <span class="text2">de R$ {{campanha.valor_necessario}}</span></span
+          >
+        </div>
+        <div class="prices mt-3 d-flex justify-content-center">
+          <p>
+            <a
+              href="{% url 'doar_campanha' campanha.id %}"
+              class="btn btn-success"
+              >Doar</a
             >
-          </div>
-          <div class="prices mt-3 d-flex justify-content-center">
-            <p>
-              <a
-                href="{% url 'doar_campanha' campanha.id %}"
-                class="btn btn-success"
-                >Doar</a
-              >
-            </p>
-          </div>
+          </p>
         </div>
       </div>
     </div>
